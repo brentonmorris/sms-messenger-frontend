@@ -1,0 +1,72 @@
+/* Additional custom styles for the message component */
+.message-form-container {
+  min-height: 400px;
+}
+
+/* Custom focus states for better accessibility */
+input[type="tel"]:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Animation for success/error messages */
+.alert-enter {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading spinner animation is already handled by Tailwind classes */
+
+/* Character counter styling */
+.char-counter {
+  transition: color 0.2s ease;
+}
+
+/* Phone number input styling */
+input[type="tel"] {
+  font-variant-numeric: lining-nums;
+}
+
+/* Textarea auto-resize prevention */
+textarea {
+  min-height: 100px;
+  max-height: 200px;
+}
+
+/* Button hover effects */
+button[type="submit"]:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button[type="submit"] {
+  transition: all 0.2s ease;
+}
+
+/* Success message fade animations */
+.success-message {
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.success-message.fade-out {
+  opacity: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .message-form-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+}

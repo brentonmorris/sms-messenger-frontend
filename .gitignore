@@ -1,0 +1,43 @@
+# Compiled output
+/dist
+/tmp
+/out-tsc
+
+# Dependencies
+/node_modules
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*.log
+
+# Local environment variables
+.env
+.local
+*.local
+
+# macOS
+.DS_Store
+
+# npm specific
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Angular specific
+/coverage
+/e2e/src/assets/
+/e2e/src/app/
+!e2e/src/app/*.ts
+!e2e/src/app/*.html
+!e2e/src/app/*.css
+!e2e/src/app/*.scss
+
+# Other
+*.zip
+*.rar
+*.7z

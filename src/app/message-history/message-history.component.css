@@ -1,0 +1,136 @@
+/* Message History Component Styles */
+
+/* Custom scrollbar for message list */
+.message-list-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.message-list-container::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.message-list-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.message-list-container::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Message item styles */
+.message-item {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.message-item:hover {
+  background-color: #f9fafb;
+}
+
+/* Auto-polling indicator */
+.auto-polling-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.polling-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+  animation: polling-fade 2s infinite;
+}
+
+@keyframes polling-fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Character count styling */
+.char-count {
+  font-variant-numeric: tabular-nums;
+  transition: color 0.2s ease;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Message content styling */
+.message-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #1f2937;
+}
+
+/* Refresh button styling */
+.refresh-button {
+  transition: transform 0.2s ease;
+}
+
+.refresh-button:hover {
+  transform: rotate(90deg);
+}
+
+.refresh-button:active {
+  transform: rotate(180deg);
+}
+
+/* Focus states for accessibility */
+.refresh-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .message-item {
+    padding: 0.75rem;
+  }
+
+  .message-content {
+    font-size: 0.875rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .refresh-button {
+    display: none;
+  }
+
+  .message-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
+  .message-list-container {
+    max-height: none;
+    overflow: visible;
+  }
+}

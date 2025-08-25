@@ -1,0 +1,9 @@
+/* Component-specific styles for app.component */
+
+/* Minimal styles - most styling handled by Tailwind CSS classes */
+
+/* Custom focus ring for better accessibility (if needed) */
+.focus-visible {
+  outline: 2px solid theme("colors.blue.500");
+  outline-offset: 2px;
+}

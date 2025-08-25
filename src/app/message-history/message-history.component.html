@@ -1,0 +1,141 @@
+<div class="bg-white p-6 rounded-lg shadow-md h-full">
+  <div class="mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">
+      Message History ({{ messages.length }})
+    </h2>
+    <div class="auto-polling-indicator">
+      <div class="polling-dot"></div>
+      <span>Updates automatically every 5 seconds</span>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex justify-center items-center py-12">
+    <div
+      class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"
+    ></div>
+    <span class="ml-3 text-gray-600">Loading messages...</span>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="hasError && !isLoading" class="text-center py-12 text-gray-500">
+    <svg
+      class="w-12 h-12 mx-auto mb-4 text-gray-400"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 18.5c-.77.833.192 2.5 1.732 2.5z"
+      ></path>
+    </svg>
+    <p class="text-lg font-medium mb-2">Unable to load messages</p>
+    <p class="text-sm mb-4">
+      {{ errorMessage || getDefaultErrorMessage() }}
+    </p>
+    <button
+      (click)="refreshMessages()"
+      class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2"
+    >
+      Try Again
+    </button>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="!isLoading && !hasError && messages.length === 0"
+    class="text-center py-12 text-gray-500"
+  >
+    <svg
+      class="w-12 h-12 mx-auto mb-4 text-gray-400"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+      ></path>
+    </svg>
+    <p class="text-lg font-medium">No messages yet</p>
+    <p class="text-sm">Send your first message to see it here</p>
+  </div>
+
+  <!-- Messages List -->
+  <div
+    *ngIf="!isLoading && messages.length > 0"
+    class="space-y-4 max-h-96 overflow-y-auto"
+  >
+    <div
+      *ngFor="let message of messages; trackBy: trackByMessageId"
+      class="bg-gray-50 border border-gray-200 rounded-lg p-4"
+      style="background-color: #f9fafb !important"
+    >
+      <!-- Message Header -->
+      <div class="flex justify-between items-start mb-3">
+        <div class="flex items-center space-x-2">
+          <span class="font-semibold text-gray-900 text-sm">{{
+            getFormattedPhoneNumber()
+          }}</span>
+          <span
+            *ngIf="message.status"
+            class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium status-badge"
+            [class.bg-gray-100]="message.status === 'queued'"
+            [class.text-gray-800]="message.status === 'queued'"
+            [class.status-queued]="message.status === 'queued'"
+            [class.bg-yellow-100]="message.status === 'sending'"
+            [class.text-yellow-800]="message.status === 'sending'"
+            [class.status-sending]="message.status === 'sending'"
+            [class.bg-blue-100]="message.status === 'sent'"
+            [class.text-blue-800]="message.status === 'sent'"
+            [class.status-sent]="message.status === 'sent'"
+            [class.bg-green-100]="message.status === 'done'"
+            [class.text-green-800]="message.status === 'done'"
+            [class.status-done]="message.status === 'done'"
+            [class.bg-red-100]="message.status === 'failed'"
+            [class.text-red-800]="message.status === 'failed'"
+            [class.status-failed]="message.status === 'failed'"
+          >
+            <span class="mr-1">{{ getStatusIcon(message.status) }}</span>
+            {{ getStatusDisplayText(message.status) }}
+          </span>
+        </div>
+        <span class="text-xs text-gray-500">{{
+          formatTimestamp(message.created_at || message.timestamp)
+        }}</span>
+      </div>
+
+      <!-- Message Content -->
+      <div
+        class="bg-gray-100 border border-gray-200 rounded-md p-3 mb-3"
+        style="
+          background-color: #f3f4f6 !important;
+          border-color: #e5e7eb !important;
+        "
+      >
+        <p
+          class="text-gray-800 text-sm leading-relaxed whitespace-pre-wrap"
+          style="color: #1f2937 !important"
+        >
+          {{ message.content }}
+        </p>
+      </div>
+
+      <!-- Character Count -->
+      <div class="flex justify-end">
+        <span
+          class="char-count text-xs text-gray-500"
+          [class.text-orange-500]="message.content.length > 160"
+          [class.text-red-500]="message.content.length > 250"
+        >
+          {{ getCharacterCount(message.content) }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
